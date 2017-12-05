@@ -18,7 +18,6 @@ class BurgerBuilder extends Component {
     // } orrr
 
     state = {
-        purchasable: false,
         purchasing: false,
         loading: false,
         error: false
@@ -34,14 +33,14 @@ class BurgerBuilder extends Component {
         //     })
     }
 
-    updatePurchaseState (ingredients) {
+    updatePurchaseState(ingredients) {
         const sum = Object.keys(ingredients)
             .map(igKey => {
                 return ingredients[igKey] //returns the values of those keys
             }).reduce((sum, el) => {
                 return sum + el;
             }, 0);
-        this.setState({purchasable: sum > 0})
+        return sum > 0;
     }
 
     purchaseHandler = () => {
@@ -89,7 +88,7 @@ class BurgerBuilder extends Component {
                         ingredientSubtracted={this.props.onIngredientDeleted}
                         disabled={disabledInfo}
                         price={this.props.price}
-                        purchasable={this.state.purchasable}
+                        purchasable={this.updatePurchaseState(this.props.ings)}
                         ordered={this.purchaseHandler} />
                 </Aux>
             );
@@ -133,7 +132,8 @@ export default connect(mapStatetoProps, mapDispatchtoProps)(withErrorHandler(Bur
 
 
 
-    // these methods are no longer needed because we now take care of them in our reducer file w/ redux
+ // these methods are no longer needed because we now take care of them in our reducer file w/ redux
+
     // addIngredientHandler = (type) => {
     //     const oldCount = this.state.ingredients[type];
     //     const updatedCount = oldCount + 1;
@@ -164,3 +164,13 @@ export default connect(mapStatetoProps, mapDispatchtoProps)(withErrorHandler(Bur
     //     this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
     //     this.updatePurchaseState(updatedIngredients);
     // };
+
+    // updatePurchaseState (ingredients) {
+    //     const sum = Object.keys(ingredients)
+    //         .map(igKey => {
+    //             return ingredients[igKey] //returns the values of those keys
+    //         }).reduce((sum, el) => {
+    //             return sum + el;
+    //         }, 0);
+    //     this.setState({purchasable: sum > 0})
+    // }
