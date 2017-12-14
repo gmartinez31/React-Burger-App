@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { add_Ingredient, delete_Ingredient } from '../../store/actions/actions';
 
 import axios from '../../axiosorders'
 import Aux from '../../hoc/Aux/Aux';
@@ -9,7 +10,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as actionTypes from '../../store/actions';
+
 
 class BurgerBuilder extends Component {
     // constructor (props) {
@@ -115,8 +116,8 @@ const mapStatetoProps = state => {
 
 const mapDispatchtoProps = dispatch => {
     return {
-        onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
-        onIngredientDeleted: (ingName) => dispatch({ type: actionTypes.DELETE_INGREDIENT, ingredientName: ingName })
+        onIngredientAdded: (ingName) => dispatch({type: add_Ingredient(), ingredientName: ingName}),
+        onIngredientDeleted: (ingName) => dispatch({ type: delete_Ingredient(), ingredientName: ingName })
     }
 }
 
