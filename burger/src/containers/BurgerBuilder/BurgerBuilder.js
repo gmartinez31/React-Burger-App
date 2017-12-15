@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { add_Ingredient, delete_Ingredient } from '../../store/actions/actions';
+import * as burgerBuilderActions from '../../store/actions';
 
-import axios from '../../axiosorders'
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -10,7 +9,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-
+import axios from '../../axiosorders';
 
 class BurgerBuilder extends Component {
     // constructor (props) {
@@ -19,19 +18,7 @@ class BurgerBuilder extends Component {
     // } orrr
 
     state = {
-        purchasing: false,
-        loading: false,
-        error: false
-    }
-
-    componentDidMount() {
-        // axios.get('https://react-burger-app-8a018.firebaseio.com/ingredients.json')
-        //     .then(response => {
-        //         this.setState({ingredients: response.data});
-        //     })
-        //     .catch(error => {
-        //         this.setState({error: true});
-        //     })
+        purchasing: false
     }
 
     updatePurchaseState(ingredients) {
@@ -92,10 +79,6 @@ class BurgerBuilder extends Component {
                 purchaseContinued={this.purchaseContinueHandler} />
         }
 
-        if (this.state.loading) {
-            orderSummary = <Spinner />;
-        }
-
         return(
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed = {this.purchaseCancelHandler}>
@@ -116,8 +99,8 @@ const mapStatetoProps = state => {
 
 const mapDispatchtoProps = dispatch => {
     return {
-        onIngredientAdded: (ingName) => dispatch({type: add_Ingredient(), ingredientName: ingName}),
-        onIngredientDeleted: (ingName) => dispatch({ type: delete_Ingredient(), ingredientName: ingName })
+        onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+        onIngredientDeleted: (ingName) => dispatch(burgerBuilderActions.deleteIngredient(ingName))
     }
 }
 

@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import reducer from './store/reducer';
+import burgerBuilderReducer from './store/reducers/burgerBuilder';
 
 //middleware
 const logger = store => {
@@ -22,7 +22,7 @@ const logger = store => {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, /* preloadedState, */ composeEnhancers(applyMiddleware(logger, thunk)));
+const store = createStore(burgerBuilderReducer, /* preloadedState, */ composeEnhancers(applyMiddleware(logger, thunk)));
 
 const app =(
     <Provider store={store}>
