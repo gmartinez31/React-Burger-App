@@ -52,11 +52,29 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 ingredients: {
                     ...state.ingredients,
-                    [action.ingredientName]: state.ingredients[action.ingredientName] + 1
+                    [action.ingredientName]: state.ingredients[action.ingredientName] - 1
                 },
-                totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
             }
             // return deleteIngredient();
+        case actionTypes.SET_INGREDIENTS:
+            return {
+                ...state,
+                ingredients: {
+                    salad: action.ingredients.salad,
+                    bacon: action.ingredients.bacon,
+                    cheese: action.ingredients.cheese,
+                    meat: action.ingredients.meat
+                },
+                error: false
+            }
+            // return setIngredients();
+        case actionTypes.FETCH_INGREDIENTS_FAILED:
+            return {
+                ...state,
+                error: true
+            }
+            // return fetchIngredientsFailed();
         default:
             return state;
     }
