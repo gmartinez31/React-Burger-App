@@ -33,9 +33,7 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true,
-                    minLength: 5,
-                    maxLength: 5
+                    required: true
                 },
                 valid: false,
                 touched: false
@@ -48,7 +46,9 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true, 
+                    minLength: 5,
+                    maxLength: 5
                 },
                 valid: false,
                 touched: false
@@ -87,7 +87,7 @@ class ContactData extends Component {
                         {value: 'cheapest', displayValue: 'Cheapest'}
                     ]
                 },
-                value: '',
+                value: 'fastest',
                 validation: {},
                 valid: true
             }
@@ -201,9 +201,9 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price: state.totalPrice,
-        loading: state.loading
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
     }
 }
 
